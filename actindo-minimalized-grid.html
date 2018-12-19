@@ -1,0 +1,436 @@
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../bower_components/actindo-grid/actindo-grid-cell-content.html">
+<link rel="import" href="../bower_components/actindo-grid/actindo-grid-error.html">
+
+<dom-module id="actindo-minimalized-grid">
+    <template>
+        <style>
+            .panel {
+                border: 1px solid var(--actindo-border-dark);
+                border-radius: 5px;
+                background-color: var(--actindo-light-grey);
+                width: auto;
+                --content-container-style: {
+                    border-top: none;
+                };
+                @apply(--minimalized-panel-styles);
+            }
+
+            .content
+            {
+                margin: -16px -24px;
+            }
+
+            .empty-message
+            {
+                @apply(--font-subheader);
+                opacity: 0.5;
+                text-align: center;
+                padding: 2em;
+            }
+
+            .loading
+            {
+                position: absolute;
+                top: 0;
+                left:0;
+                right: 0;
+                bottom: 0;
+                background-color: white;
+                opacity: 0.72;
+                display: flex;
+                align-items: center;
+                z-index: 1;
+                justify-content: center;
+            }
+
+            paper-spinner-lite
+            {
+                --paper-spinner-color: var(--actindo-primary);
+                width: 50px;
+                height: 50px;
+            }
+
+            table {
+                border-collapse: collapse;
+                min-width: 100%;
+                table-layout: fixed;
+            }
+
+            table thead .cell {
+                color: var(--actindo-secondary);
+                text-align: right;
+            }
+
+            table .cell {
+                position: relative;
+                text-align: right;
+                padding: 0.5rem 1.4rem;
+            }
+
+            table .cell:first-child {
+                text-align: left;
+            }
+
+            table .row
+            {
+                border-bottom: 1px solid rgba(0,0,0,0.15);
+            }
+
+
+            table tbody .row:hover {
+                background-color: var(--actindo-light-grey-light);
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08);
+            }
+
+            table .row .actions-overlay {
+                display: none;
+                position: absolute;
+                top:0 ;
+                right: 0;
+                background: white;
+                height: 100%;
+                align-items: center;
+                justify-content: flex-end;
+                @apply(--actions-overlay-styles);
+            }
+
+            table .row:hover .cell:last-of-type .actions-overlay {
+                display: flex!important;
+                align-items: center;
+            }
+
+            .clickable-true
+            {
+                cursor: pointer;
+                position: relative;
+            }
+        </style>
+
+        <actindo-basic-panel
+            class="panel"
+            header="[[headerText]]"
+            save-label="[[buttonLabel]]"
+            no-back-icon
+            no-cancel-button
+            no-save-button="[[noButton]]"
+            on-save="_onButtonClick"
+        >
+            <slot name="header" slot="header"></slot>
+
+            <div slot="content" class="content">
+                <table>
+                    <thead>
+                        <tr class="row">
+                            <template is="dom-repeat" items="[[columns]]" as="column" filter="_isColumnVisibile">
+                                <th class="cell">
+                                    <span>[[column.label]]</span>
+                                </th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template is="dom-repeat" items="[[items]]" as="item" index-as="itemIndex">
+                            <tr class$="row clickable-[[rowClickable]]" on-click="_onRowClick">
+                                <template is="dom-repeat" items="[[columns]]" as="column" index-as="columnIndex" filter="_isColumnVisibile">
+                                    <td class="cell">
+                                        <actindo-grid-cell-content
+                                            row="[[item]]"
+                                            column="[[column]]"
+                                        >
+                                        </actindo-grid-cell-content>
+                                        <template is="dom-if" if="[[_canShowActionButtons(columnIndex)]]">
+                                            <div class="actions-overlay">
+                                                <template is="dom-repeat" items="[[actions]]" as="action">
+                                                    <paper-icon-button
+                                                        icon="[[action.icon]]"
+                                                        data-item="[[item]]"
+                                                        data-item-index="[[itemIndex]]"
+                                                        on-click="_onActionIconClicked"
+                                                    >
+                                                    </paper-icon-button>
+                                                </template>
+                                            </div>
+                                        </template>
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                    </tbody>
+
+                </table>
+                <div style="height: 5px"></div>
+                <template is="dom-if" if="[[!_xhr]]">
+                    <template is="dom-if" if="[[!items.length]]">
+                        <div class="empty-message">[[emptyMessage]]</div>
+                    </template>
+                </template>
+
+                <template is="dom-if" if="[[_error]]">
+                    <actindo-grid-error></actindo-grid-error>
+                </template>
+
+                <template is="dom-if" if="[[_xhr]]">
+                    <div class="loading">
+                        <paper-spinner-lite active></paper-spinner-lite>
+                    </div>
+                </template>
+            </div>
+        </actindo-basic-panel>
+    </template>
+
+    <script>
+        class ActindoMinimalizedGrid extends Polymer.Element
+        {
+            static get is()
+            {
+                return 'actindo-minimalized-grid';
+            }
+
+            static get properties()
+            {
+                return {
+                    _xhr: {
+                        type: Object,
+                        value: null
+                    },
+                    _error: {
+                        type: Boolean,
+                        value: false
+                    },
+                    _totalVisibleColumns: {
+                        type: Number,
+                        value: 0
+                    },
+                    _serializeOptionals: {
+                        type: Array,
+                        value: function() {
+                            return [];
+                        }
+                    },
+                    headerText: {
+                        type: String
+                    },
+                    buttonLabel: {
+                        type: String,
+                        value: 'Add'
+                    },
+                    noButton: {
+                        type: Boolean,
+                        value: false
+                    },
+                    columns: {
+                        type: Array,
+                        value: function() {
+                            return [];
+                        },
+                        observer: '_onColumnsChanged'
+                    },
+                    rowClickable: {
+                        type: Boolean,
+                        value: false
+                    },
+                    actions: {
+                        type: Array,
+                        value: function() {
+                            return [];
+                        }
+                    },
+                    remote: {
+                        type: String
+                    },
+                    remoteParams: {
+                        type: Object,
+                        value: function() {
+                            return {};
+                        }
+                    },
+                    remoteParamSerializeOptionals: {
+                        type: String,
+                        value: 'serializeOptionals'
+                    },
+                    remotePathData: {
+                        type: String,
+                        value: 'data'
+                    },
+                    emptyMessage: {
+                        type: String,
+                        value: 'No data'
+                    },
+                    items: {
+                        type: Array,
+                        value: function() {
+                            return [];
+                        },
+                        notify: true
+                    }
+                };
+            }
+
+            static get observers() {
+                return [
+                    '_onRemoteChanged(remote, remotePathData, remoteParams, _serializeOptionals)'
+                ];
+            }
+
+            /**
+             * takes the given object and creates an http query string from it
+             * usage: let str = _serialize({foo: 'bar', baz: ['a', 'b']}); => 'foo=bar&baz[0]=a&baz[1]=b'
+             *
+             * @param {{}} obj the object to serialize
+             * @param {String} prefix internal only (used in recursive calls for nested objects)
+             * @returns {String}
+             * @private
+             */
+            _serialize(obj, prefix) {
+                var str = [], p;
+                for(p in obj) {
+                    if (obj.hasOwnProperty(p)) {
+                        var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+                        str.push((v !== null && typeof v === "object") ?
+                            this._serialize(v, k) :
+                            encodeURIComponent(k) + "=" + encodeURIComponent(v));
+                    }
+                }
+                return str.join("&");
+            }
+
+            _onRowClick(e)
+            {
+                if( this.rowClickable )
+                {
+                    this.dispatchEvent( new CustomEvent( "row-click", {detail: e.model.get("item") } ) );
+                }
+            }
+
+            _isColumnVisibile(column)
+            {
+                return !column.hidden;
+            }
+
+            _isColumnOptional(column)
+            {
+                return column.optional;
+            }
+
+            _canShowActionButtons(columnIndex)
+            {
+                return this.actions.length && (columnIndex === (this._totalVisibleColumns - 1));
+            }
+
+            _onColumnsChanged(columns)
+            {
+                this._totalVisibleColumns = 0;
+                this._serializeOptionals = [];
+
+                if (columns && columns.length)
+                {
+                    const visibleColumns = this.columns.filter(column => this._isColumnVisibile(column));
+
+                    this._totalVisibleColumns = visibleColumns.length;
+                    this._serializeOptionals = visibleColumns
+                        .filter(column => this._isColumnOptional(column))
+                        .map(item => item.field);
+                }
+            }
+
+            _onRemoteChanged(remote, remotePathData, remoteParams, serializeOptionals)
+            {
+                if (!remote)
+                {
+                    return;
+                }
+
+                this._load(remote, remotePathData, remoteParams, serializeOptionals);
+            }
+
+            refresh()
+            {
+                this._load(this.remote,this.remotePathData,this.remoteParams, this._serializeOptionals);
+            }
+
+            _load(remote, remotePathData, remoteParams, serializeOptionals)
+            {
+                if (!remote)
+                {
+                    return;
+                }
+
+                this._debouncer = Polymer.Debouncer.debounce(
+                    this._debouncer,
+                    Polymer.Async.timeOut.after(50),
+                    () => {
+                        let request = remoteParams;
+                        this._error = false;
+
+                        if (serializeOptionals && serializeOptionals.length)
+                        {
+                            request[this.remoteParamSerializeOptionals] = serializeOptionals;
+                        }
+
+                        if (this._xhr)
+                        {
+                            this._xhr.abort();
+                        }
+
+                        // Make request
+                        this._xhr = new XMLHttpRequest();
+                        this._xhr.open('POST', remote, true);
+                        this._xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                        this._xhr.onreadystatechange = () => {
+                            if (this._xhr.readyState === XMLHttpRequest.DONE)
+                            {
+                                if (this._xhr.status === 200)
+                                {
+                                    let data = JSON.parse(this._xhr.responseText);
+                                    this.items = Polymer.Path.get(data, remotePathData);
+                                    this.dispatchEvent(new CustomEvent('after-load', { detail: data }));
+                                }
+                                else if (this._xhr.status !== 0)
+                                {
+                                    this._xhr = null;
+                                    this._error = true;
+                                    console.error(this.xhr.response);
+                                }
+
+                                this._xhr = null;
+                            }
+                        };
+                        this._xhr.send(this._serialize(request));
+                    }
+                );
+            }
+
+            _onButtonClick()
+            {
+                this.dispatchEvent(new CustomEvent('button-clicked'));
+            }
+
+            _onActionIconClicked(e)
+            {
+                const action = e.model.action.action;
+                e.stopPropagation();
+                if (action)
+                {
+                    this.dispatchEvent(new CustomEvent(action, {
+                        detail: {
+                            item: e.model.item,
+                            itemIndex: e.model.itemIndex
+                        }
+                    }));
+                }
+            }
+
+            addItem(item)
+            {
+                this.set('items', this.items.concat(item));
+            }
+
+            removeAllItems()
+            {
+                this.set('items', []);
+            }
+        }
+        window.customElements.define(ActindoMinimalizedGrid.is, ActindoMinimalizedGrid);
+    </script>
+</dom-module>

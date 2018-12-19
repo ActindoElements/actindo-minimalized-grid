@@ -1,0 +1,865 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "",
+      "summary": "",
+      "path": "actindo-minimalized-grid.html",
+      "properties": [
+        {
+          "name": "_xhr",
+          "type": "Object",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 192,
+              "column": 20
+            },
+            "end": {
+              "line": 195,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "_error",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 196,
+              "column": 20
+            },
+            "end": {
+              "line": 199,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "_totalVisibleColumns",
+          "type": "number",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 200,
+              "column": 20
+            },
+            "end": {
+              "line": 203,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "0"
+        },
+        {
+          "name": "_serializeOptionals",
+          "type": "Array",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 204,
+              "column": 20
+            },
+            "end": {
+              "line": 209,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "headerText",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 210,
+              "column": 20
+            },
+            "end": {
+              "line": 212,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "buttonLabel",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 213,
+              "column": 20
+            },
+            "end": {
+              "line": 216,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"Add\""
+        },
+        {
+          "name": "noButton",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 217,
+              "column": 20
+            },
+            "end": {
+              "line": 220,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "columns",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 221,
+              "column": 20
+            },
+            "end": {
+              "line": 227,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_onColumnsChanged\""
+            }
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "rowClickable",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 228,
+              "column": 20
+            },
+            "end": {
+              "line": 231,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "actions",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 232,
+              "column": 20
+            },
+            "end": {
+              "line": 237,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "remote",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 238,
+              "column": 20
+            },
+            "end": {
+              "line": 240,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "remoteParams",
+          "type": "Object",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 241,
+              "column": 20
+            },
+            "end": {
+              "line": 246,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "{}"
+        },
+        {
+          "name": "remoteParamSerializeOptionals",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 247,
+              "column": 20
+            },
+            "end": {
+              "line": 250,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"serializeOptionals\""
+        },
+        {
+          "name": "remotePathData",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 251,
+              "column": 20
+            },
+            "end": {
+              "line": 254,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"data\""
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 255,
+              "column": 20
+            },
+            "end": {
+              "line": 258,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"No data\""
+        },
+        {
+          "name": "items",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 259,
+              "column": 20
+            },
+            "end": {
+              "line": 265,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "[]"
+        }
+      ],
+      "methods": [
+        {
+          "name": "_serialize",
+          "description": "takes the given object and creates an http query string from it\nusage: let str = _serialize({foo: 'bar', baz: ['a', 'b']}); => 'foo=bar&baz[0]=a&baz[1]=b'",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 284,
+              "column": 12
+            },
+            "end": {
+              "line": 295,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "obj",
+              "type": "{}",
+              "description": "the object to serialize"
+            },
+            {
+              "name": "prefix",
+              "type": "String",
+              "description": "internal only (used in recursive calls for nested objects)"
+            }
+          ],
+          "return": {
+            "type": "String"
+          }
+        },
+        {
+          "name": "_onRowClick",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 297,
+              "column": 12
+            },
+            "end": {
+              "line": 303,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "name": "_isColumnVisibile",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 305,
+              "column": 12
+            },
+            "end": {
+              "line": 308,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "column"
+            }
+          ]
+        },
+        {
+          "name": "_isColumnOptional",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 310,
+              "column": 12
+            },
+            "end": {
+              "line": 313,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "column"
+            }
+          ]
+        },
+        {
+          "name": "_canShowActionButtons",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 315,
+              "column": 12
+            },
+            "end": {
+              "line": 318,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "columnIndex"
+            }
+          ]
+        },
+        {
+          "name": "_onColumnsChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 320,
+              "column": 12
+            },
+            "end": {
+              "line": 334,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "columns"
+            }
+          ]
+        },
+        {
+          "name": "_onRemoteChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 336,
+              "column": 12
+            },
+            "end": {
+              "line": 344,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "remote"
+            },
+            {
+              "name": "remotePathData"
+            },
+            {
+              "name": "remoteParams"
+            },
+            {
+              "name": "serializeOptionals"
+            }
+          ]
+        },
+        {
+          "name": "refresh",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 346,
+              "column": 12
+            },
+            "end": {
+              "line": 349,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_load",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 351,
+              "column": 12
+            },
+            "end": {
+              "line": 401,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "remote"
+            },
+            {
+              "name": "remotePathData"
+            },
+            {
+              "name": "remoteParams"
+            },
+            {
+              "name": "serializeOptionals"
+            }
+          ]
+        },
+        {
+          "name": "_onButtonClick",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 403,
+              "column": 12
+            },
+            "end": {
+              "line": 406,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_onActionIconClicked",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 408,
+              "column": 12
+            },
+            "end": {
+              "line": 421,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "name": "addItem",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 423,
+              "column": 12
+            },
+            "end": {
+              "line": 426,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "item"
+            }
+          ]
+        },
+        {
+          "name": "removeAllItems",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 428,
+              "column": 12
+            },
+            "end": {
+              "line": 431,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 182,
+          "column": 8
+        },
+        "end": {
+          "line": 432,
+          "column": 9
+        }
+      },
+      "privacy": "public",
+      "superclass": "Polymer.Element",
+      "name": "ActindoMinimalizedGrid",
+      "attributes": [
+        {
+          "name": "header-text",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 210,
+              "column": 20
+            },
+            "end": {
+              "line": 212,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "button-label",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 213,
+              "column": 20
+            },
+            "end": {
+              "line": 216,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "no-button",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 217,
+              "column": 20
+            },
+            "end": {
+              "line": 220,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "columns",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 221,
+              "column": 20
+            },
+            "end": {
+              "line": 227,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "row-clickable",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 228,
+              "column": 20
+            },
+            "end": {
+              "line": 231,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "actions",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 232,
+              "column": 20
+            },
+            "end": {
+              "line": 237,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "remote",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 238,
+              "column": 20
+            },
+            "end": {
+              "line": 240,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "remote-params",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 241,
+              "column": 20
+            },
+            "end": {
+              "line": 246,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "remote-param-serialize-optionals",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 247,
+              "column": 20
+            },
+            "end": {
+              "line": 250,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "remote-path-data",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 251,
+              "column": 20
+            },
+            "end": {
+              "line": 254,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "empty-message",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 255,
+              "column": 20
+            },
+            "end": {
+              "line": 258,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "items",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 259,
+              "column": 20
+            },
+            "end": {
+              "line": 265,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "items-changed",
+          "description": "Fired when the `items` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [
+        {
+          "description": "",
+          "name": "header",
+          "range": {
+            "file": "actindo-minimalized-grid.html",
+            "start": {
+              "line": 118,
+              "column": 12
+            },
+            "end": {
+              "line": 118,
+              "column": 53
+            }
+          }
+        }
+      ],
+      "tagname": "actindo-minimalized-grid"
+    }
+  ]
+}
