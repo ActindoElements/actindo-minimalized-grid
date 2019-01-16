@@ -1,14 +1,14 @@
-<link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
-<link rel="import" href="../bower_components/actindo-grid/actindo-grid-cell-content.html">
-<link rel="import" href="../bower_components/actindo-grid/actindo-grid-error.html">
+<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../actindo-grid/actindo-grid-cell-content.html">
+<link rel="import" href="../actindo-grid/actindo-grid-error.html">
 
 <dom-module id="actindo-minimalized-grid">
     <template>
-        <style>
+        <style include="actindo-level-style">
             .panel {
-                border: 1px solid var(--actindo-border-dark);
+                border: 1px solid var(--actindo-border-light);
                 border-radius: 5px;
-                background-color: var(--actindo-light-grey);
+                background-color: var(--selected-background-color);
                 width: auto;
                 --content-container-style: {
                     border-top: none;
@@ -46,7 +46,7 @@
 
             paper-spinner-lite
             {
-                --paper-spinner-color: var(--actindo-primary);
+                --paper-spinner-color: var(--actindo-green);
                 width: 50px;
                 height: 50px;
             }
@@ -58,7 +58,6 @@
             }
 
             table thead .cell {
-                color: var(--actindo-secondary);
                 text-align: right;
             }
 
@@ -79,7 +78,8 @@
 
 
             table tbody .row:hover {
-                background-color: var(--actindo-light-grey-light);
+                background-color: var(--hover-background-color);
+                color: var(--hover-text-color);
                 box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08);
             }
 
