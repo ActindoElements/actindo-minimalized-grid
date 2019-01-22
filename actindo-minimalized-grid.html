@@ -1,19 +1,39 @@
-<link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
-<link rel="import" href="../bower_components/actindo-grid/actindo-grid-cell-content.html">
-<link rel="import" href="../bower_components/actindo-grid/actindo-grid-error.html">
+<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../actindo-grid/actindo-grid-cell-content.html">
+<link rel="import" href="../actindo-grid/actindo-grid-error.html">
 
 <dom-module id="actindo-minimalized-grid">
     <template>
-        <style>
+        <style include="actindo-level-style">
+
+            :host
+            {
+                --outside-border-color: var(--actindo-border-light);
+            }
+
+            :host([invalid])
+            {
+                --outside-border-color: var(--actindo-error);
+            }
+
             .panel {
-                border: 1px solid var(--actindo-border-dark);
+                border: 1px solid var(--outside-border-color);
                 border-radius: 5px;
-                background-color: var(--actindo-light-grey);
+                background-color: var(--selected-background-color);
                 width: auto;
                 --content-container-style: {
                     border-top: none;
                 };
                 @apply(--minimalized-panel-styles);
+            }
+
+            div.errorMessage
+            {
+                color: var(--actindo-error);
+                height: 2.5em;
+                margin-top: 0.5em;
+                margin-left: 1.5em;
+                @apply(--font-caption);
             }
 
             .content
@@ -46,7 +66,7 @@
 
             paper-spinner-lite
             {
-                --paper-spinner-color: var(--actindo-primary);
+                --paper-spinner-color: var(--actindo-green);
                 width: 50px;
                 height: 50px;
             }
@@ -58,7 +78,6 @@
             }
 
             table thead .cell {
-                color: var(--actindo-secondary);
                 text-align: right;
             }
 
@@ -74,12 +93,18 @@
 
             table .row
             {
-                border-bottom: 1px solid rgba(0,0,0,0.15);
+                border-bottom: 1px solid var(--actindo-border-light);
+            }
+
+            table .row:last-of-type
+            {
+                border-bottom: none;
             }
 
 
             table tbody .row:hover {
-                background-color: var(--actindo-light-grey-light);
+                background-color: var(--hover-background-color);
+                color: var(--hover-text-color);
                 box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08);
             }
 
@@ -88,7 +113,7 @@
                 position: absolute;
                 top:0 ;
                 right: 0;
-                background: white;
+                background: var(--hover-background-color);
                 height: 100%;
                 align-items: center;
                 justify-content: flex-end;
@@ -177,6 +202,13 @@
                 </template>
             </div>
         </actindo-basic-panel>
+        <template is="dom-if" if="[[errorMessage]]">
+            <div class="errorMessage">
+                <template is="dom-if" if="[[invalid]]">
+                    [[errorMessage]]
+                </template>
+            </div>
+        </template>
     </template>
 
     <script>
@@ -263,6 +295,14 @@
                             return [];
                         },
                         notify: true
+                    },
+                    invalid: {
+                        type: Boolean,
+                        value: false,
+                        reflectToAttribute: true
+                    },
+                    errorMessage: {
+                        type: String
                     }
                 };
             }
