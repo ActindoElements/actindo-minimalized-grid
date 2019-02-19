@@ -673,7 +673,7 @@
         }
       },
       "privacy": "public",
-      "superclass": "HTMLElement",
+      "superclass": "Polymer.Element",
       "name": "ActindoMinimalizedGrid",
       "attributes": [
         {
