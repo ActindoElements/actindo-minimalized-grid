@@ -5,9 +5,9 @@
 <dom-module id="actindo-minimalized-grid">
     <template>
         <style include="actindo-level-style">
-
             :host
             {
+                display: block;
                 --outside-border-color: var(--actindo-border-light);
             }
 
@@ -30,9 +30,11 @@
             div.errorMessage
             {
                 color: var(--actindo-error);
-                height: 2.5em;
-                margin-top: 0.5em;
-                margin-left: 1.5em;
+                height: 1.4em;
+                margin: 0.5em 1em 0 1em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 @apply(--font-caption);
             }
 
